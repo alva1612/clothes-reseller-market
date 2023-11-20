@@ -1,7 +1,25 @@
 import clsx from "clsx";
-import { FC, PropsWithChildren } from "react";
+import { FC, MouseEvent, PropsWithChildren, useCallback, useRef } from "react";
 
-export const ModalBackdrop: FC<PropsWithChildren> = ({ children }) => {
+interface ModalBackdropProps {
+  onBackdropClick?: () => void;
+}
+
+export const ModalBackdrop: FC<PropsWithChildren<ModalBackdropProps>> = ({
+  children,
+  onBackdropClick,
+}) => {
+  const handleBackdropClick = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      onBackdropClick && onBackdropClick();
+    },
+    [onBackdropClick]
+  );
+  const handleContentClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  }, []);
+
   return (
     <div
       className={clsx(
@@ -12,8 +30,9 @@ export const ModalBackdrop: FC<PropsWithChildren> = ({ children }) => {
         "w-screen h-screen",
         "z-30"
       )}
+      onClick={handleBackdropClick}
     >
-      {children}
+      <div onClick={handleContentClick}>{children}</div>
     </div>
   );
 };
