@@ -1,5 +1,11 @@
 import clsx from "clsx";
-import { DetailedHTMLProps, FC, InputHTMLAttributes } from "react";
+import {
+  ChangeEvent,
+  DetailedHTMLProps,
+  FC,
+  InputHTMLAttributes,
+  useCallback,
+} from "react";
 import { useFormContext } from "react-hook-form";
 
 interface TextInputProps {
@@ -10,8 +16,16 @@ interface TextInputProps {
 export const TextInput: FC<
   TextInputProps &
     DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-> = ({ className, fieldKey, ...rest }) => {
+> = ({ className, fieldKey, onChange, ...rest }) => {
   const { register } = useFormContext();
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange && onChange(e);
+    },
+    [onChange]
+  );
+
   return (
     <>
       <input
@@ -22,6 +36,7 @@ export const TextInput: FC<
         )}
         {...rest}
         {...register(fieldKey)}
+        onChange={handleChange}
       />
     </>
   );
