@@ -14,6 +14,16 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      aspectRatio: {
+        "golden-y": "1000/1618",
+        "golden-x": "1618/1000",
+      },
+      spacing: {
+        default: "1.5rem",
+      },
+      colors: {
+        highlight: "#86198f",
+      },
     },
   },
   plugins: [],
