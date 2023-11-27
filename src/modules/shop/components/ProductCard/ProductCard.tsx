@@ -1,6 +1,7 @@
 import Image from "next/image";
 import clsx from "clsx";
 import { FC } from "react";
+import { IconHeart } from "@/modules/icons";
 
 interface CardPrices {
   normal: string;
@@ -61,6 +62,7 @@ export const ProductCard = ({
         <p className="text-sm">{description}</p>
         <div className={clsx("flex justify-between")}>
           <Prices {...prices} />
+          <IconHeart isFollow={isFollowed} />
         </div>
       </div>
     </div>

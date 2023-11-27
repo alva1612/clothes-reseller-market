@@ -1,0 +1,10 @@
+.iconHeart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &_active {
+    svg {
+      fill: #86198f;
+    }
+  }
+}

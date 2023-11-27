@@ -25,7 +25,7 @@ const productB: ProductCardProps = {
   images: [
     "https://hmperu.vtexassets.com/arquivos/ids/3937225/Polo-de-cuello-redondo-Regular-Fit---Verde---H-M-PE.jpg?v=638321869432870000",
   ],
-  isFollowed: false,
+  isFollowed: true,
   name: "Polo",
   prices: {
     normal: "14.89",
