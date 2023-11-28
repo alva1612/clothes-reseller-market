@@ -31,7 +31,6 @@ export const loginSlice: StateCreator<
     },
   },
   setEmailLoginFormData: (data) => {
-    console.log({ data });
     const current = get().form.emailLogin;
     set(
       (state) => {

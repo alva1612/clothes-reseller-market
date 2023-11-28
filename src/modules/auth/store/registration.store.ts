@@ -34,7 +34,6 @@ export const registrationSlice: StateCreator<
   },
 
   setEmailRegistrationFormData: (data) => {
-    console.log({ data });
     const current = get().form.emailRegistration;
     set(
       // { form: { emailRegistration:{ ...current, ...data }} },
