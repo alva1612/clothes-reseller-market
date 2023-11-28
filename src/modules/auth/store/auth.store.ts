@@ -28,9 +28,11 @@ const authSlice: StateCreator<
     set({ accessToken });
   },
   login: async () => {
+    console.log("LOGIN");
     const formData = get().form.emailLogin;
     const resLogin = await EmailLogin(formData);
-    if (resLogin.status !== 200) {
+    console.log({ resLogin });
+    if (resLogin.status !== 201 && resLogin.status !== 200) {
       console.log("erorr");
       return;
     }

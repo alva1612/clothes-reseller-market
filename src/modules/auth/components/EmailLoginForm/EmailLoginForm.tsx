@@ -12,9 +12,10 @@ export const EmailLoginForm = () => {
 
   const formData = useAuthStore((state) => state.form.emailLogin);
   const setFormData = useAuthStore((state) => state.setEmailLoginFormData);
+  const login = useAuthStore((state) => state.login);
 
   const loginMutation = useMutation({
-    mutationFn: () => EmailLogin(formData),
+    mutationFn: login,
     mutationKey: ["register"],
   });
 
