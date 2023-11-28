@@ -37,6 +37,7 @@ export const TextInput: FC<
         {...rest}
         {...register(fieldKey)}
         onChange={handleChange}
+        id={fieldKey}
       />
     </>
   );
