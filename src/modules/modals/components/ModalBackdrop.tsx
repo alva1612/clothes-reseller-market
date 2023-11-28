@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC, MouseEvent, PropsWithChildren, useCallback, useRef } from "react";
+import { FC, MouseEvent, PropsWithChildren, useCallback } from "react";
 
 interface ModalBackdropProps {
   onBackdropClick?: () => void;
