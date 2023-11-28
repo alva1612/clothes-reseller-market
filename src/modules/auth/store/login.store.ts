@@ -1,6 +1,8 @@
 import { StateCreator, create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { EmailLogin } from "../services";
+import { useAuthStore } from "./auth.store";
 
 interface FormData {
   email: string;
@@ -36,6 +38,14 @@ const loginStoreAPI: StateCreator<
       false,
       `setFormData - ${Object.keys(data).join(", ")}`
     );
+  },
+  login: async () => {
+    const formData = get().form;
+    const resLogin = await EmailLogin(formData);
+    if (resLogin.status !== 200) {
+      console.log("erorr");
+      return;
+    }
   },
 });
 
