@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
-import { RegistrationStore } from ".";
 import { AuthStore } from "./auth.store";
+import { RegistrationStore } from "./registration.store";
 
 interface FormData {
   email: string;

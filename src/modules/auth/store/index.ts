@@ -1,1 +1,1 @@
-export * from "./registration.store";
+export * from "./auth.store";
