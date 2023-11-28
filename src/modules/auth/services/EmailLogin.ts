@@ -1,11 +1,18 @@
 import { coreApi } from "@/lib/axios.client";
+import { AxiosResponse } from "axios";
 
 interface Body {
   email: string;
   password: string;
 }
 
-export const EmailLogin = async (data: Body) => {
-  const res = await coreApi.post("auth/login", data);
+interface Response {
+  access_token: string;
+}
+
+export const EmailLogin = async (
+  data: Body
+): Promise<AxiosResponse<Response>> => {
+  const res = await coreApi.post<Response>("auth/login", data);
   return res;
 };

@@ -5,13 +5,13 @@ import clsx from "clsx";
 import { Button, Title } from "@/modules/ui/components";
 import { TextInput } from "@/modules/forms/components/TextInput";
 import { EmailLogin } from "../../services";
-import { useLoginStore } from "../../store/login.store";
+import { useAuthStore } from "../../store/auth.store";
 
 export const EmailLoginForm = () => {
   const form = useForm();
 
-  const formData = useLoginStore((state) => state.form);
-  const setFormData = useLoginStore((state) => state.setFormData);
+  const formData = useAuthStore((state) => state.form.emailLogin);
+  const setFormData = useAuthStore((state) => state.setEmailLoginFormData);
 
   const loginMutation = useMutation({
     mutationFn: () => EmailLogin(formData),

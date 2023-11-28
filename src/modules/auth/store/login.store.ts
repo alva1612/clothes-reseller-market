@@ -1,54 +1,48 @@
-import { StateCreator, create } from "zustand";
-import { devtools } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
-import { EmailLogin } from "../services";
-import { useAuthStore } from "./auth.store";
+import { StateCreator } from "zustand";
+import { RegistrationStore } from ".";
+import { AuthStore } from "./auth.store";
 
 interface FormData {
   email: string;
   password: string;
 }
-interface RegistrationState {
-  form: FormData;
+interface LoginState {
+  form: { emailLogin: FormData };
 }
 
-interface RegistrationActions {
-  setFormData: (
+interface LoginActions {
+  setEmailLoginFormData: (
     data: Partial<Record<keyof FormData, FormData[keyof FormData]>>
   ) => void;
 }
 
-type RegistrationStore = RegistrationState & RegistrationActions;
+export type LoginStore = LoginState & LoginActions;
 
-const loginStoreAPI: StateCreator<
-  RegistrationStore,
+export const loginSlice: StateCreator<
+  LoginStore & RegistrationStore & AuthStore,
   [["zustand/devtools", never], ["zustand/immer", never]],
-  []
+  [],
+  LoginStore
 > = (set, get) => ({
   form: {
-    email: "",
-    password: "",
+    emailLogin: {
+      email: "",
+      password: "",
+    },
   },
-
-  setFormData: (data) => {
+  setEmailLoginFormData: (data) => {
     console.log({ data });
-    const current = get().form;
+    const current = get().form.emailLogin;
     set(
-      { form: { ...current, ...data } },
+      (state) => {
+        state.form.emailLogin = { ...current, ...data };
+      },
       false,
-      `setFormData - ${Object.keys(data).join(", ")}`
+      `setEmailLoginFormData - ${Object.keys(data).join(", ")}`
     );
-  },
-  login: async () => {
-    const formData = get().form;
-    const resLogin = await EmailLogin(formData);
-    if (resLogin.status !== 200) {
-      console.log("erorr");
-      return;
-    }
   },
 });
 
-export const useLoginStore = create<RegistrationStore>()(
-  devtools(immer(loginStoreAPI))
-);
+// export const useLoginStore = create<LoginStore>()(
+//   devtools(immer(loginStoreAPI))
+// );

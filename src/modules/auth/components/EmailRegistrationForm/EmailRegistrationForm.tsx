@@ -4,14 +4,16 @@ import { useMutation } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useCallback } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useRegistrationStore } from "../../store";
 import { SubmitEmailRegistration } from "../../services";
+import { useAuthStore } from "../../store/auth.store";
 
 export const EmailRegistrationForm = () => {
   const form = useForm();
 
-  const formData = useRegistrationStore((state) => state.form);
-  const setFormData = useRegistrationStore((state) => state.setFormData);
+  const formData = useAuthStore((state) => state.form.emailRegistration);
+  const setFormData = useAuthStore(
+    (state) => state.setEmailRegistrationFormData
+  );
 
   const registerMutation = useMutation({
     mutationFn: () => SubmitEmailRegistration(formData),

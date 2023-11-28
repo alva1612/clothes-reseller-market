@@ -1,6 +1,6 @@
-import { StateCreator, create } from "zustand";
-import { devtools } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
+import { StateCreator } from "zustand";
+import { LoginStore } from "./login.store";
+import { AuthStore } from "./auth.store";
 
 interface FormData {
   email: string;
@@ -8,35 +8,45 @@ interface FormData {
   confirmPassword: string;
 }
 interface RegistrationState {
-  form: FormData;
+  form: { emailRegistration: FormData };
 }
 
 interface RegistrationActions {
-  setFormData: (
+  setEmailRegistrationFormData: (
     data: Partial<Record<keyof FormData, FormData[keyof FormData]>>
   ) => void;
 }
 
-type RegistrationStore = RegistrationState & RegistrationActions;
+export type RegistrationStore = RegistrationState & RegistrationActions;
 
-const registrationStoreAPI: StateCreator<
-  RegistrationStore,
+export const registrationSlice: StateCreator<
+  RegistrationStore & LoginStore & AuthStore,
   [["zustand/devtools", never], ["zustand/immer", never]],
-  []
+  [],
+  RegistrationStore
 > = (set, get) => ({
   form: {
-    confirmPassword: "",
-    email: "",
-    password: "",
+    emailRegistration: {
+      confirmPassword: "",
+      email: "",
+      password: "",
+    },
   },
 
-  setFormData: (data) => {
+  setEmailRegistrationFormData: (data) => {
     console.log({ data });
-    const current = get().form;
-    set({ form: { ...current, ...data } });
+    const current = get().form.emailRegistration;
+    set(
+      // { form: { emailRegistration:{ ...current, ...data }} },
+      (state) => {
+        state.form.emailRegistration = { ...current, ...data };
+      },
+      false,
+      `setEmailRegistrationFormData - ${Object.keys(data).join(", ")}`
+    );
   },
 });
 
-export const useRegistrationStore = create<RegistrationStore>()(
-  devtools(immer(registrationStoreAPI))
-);
+// export const useRegistrationStore = create<RegistrationStore>()(
+//   devtools(immer(registrationStoreAPI))
+// );
