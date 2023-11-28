@@ -7,6 +7,6 @@ interface Body {
 }
 
 export const SubmitEmailRegistration = async (data: Body) => {
-  const res = coreApi.post("auth/register", data);
+  const res = await coreApi.post("auth/register", data);
   return res;
 };

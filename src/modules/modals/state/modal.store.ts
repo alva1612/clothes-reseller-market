@@ -2,7 +2,7 @@ import { StateCreator, create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-export type ModalKey = "registration";
+export type ModalKey = "registration" | "login";
 
 type ModalState = {
   [K in ModalKey]: { show: boolean };
@@ -16,6 +16,9 @@ type ModalStore = ModalActions & ModalState;
 
 const modalStoreAPI: StateCreator<ModalStore> = (set, get) => ({
   registration: {
+    show: false,
+  },
+  login: {
     show: false,
   },
   toggleModal: (key) => {

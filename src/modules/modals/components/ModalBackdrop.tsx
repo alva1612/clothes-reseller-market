@@ -32,7 +32,9 @@ export const ModalBackdrop: FC<PropsWithChildren<ModalBackdropProps>> = ({
       )}
       onClick={handleBackdropClick}
     >
-      <div onClick={handleContentClick}>{children}</div>
+      <div className={clsx("w-full")} onClick={handleContentClick}>
+        {children}
+      </div>
     </div>
   );
 };

@@ -40,6 +40,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
       <button onClick={() => toggleModal("registration")}>Registrar</button>
+      <button onClick={() => toggleModal("login")}>Login</button>
       <div className={clsx("w-full px-default", "grid grid-cols-2 gap-4")}>
         <ProductCard {...product} />
         <ProductCard {...productB} />

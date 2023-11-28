@@ -5,7 +5,6 @@ import { immer } from "zustand/middleware/immer";
 interface FormData {
   email: string;
   password: string;
-  confirmPassword: string;
 }
 interface RegistrationState {
   form: FormData;
@@ -19,13 +18,12 @@ interface RegistrationActions {
 
 type RegistrationStore = RegistrationState & RegistrationActions;
 
-const registrationStoreAPI: StateCreator<
+const loginStoreAPI: StateCreator<
   RegistrationStore,
   [["zustand/devtools", never], ["zustand/immer", never]],
   []
 > = (set, get) => ({
   form: {
-    confirmPassword: "",
     email: "",
     password: "",
   },
@@ -33,10 +31,14 @@ const registrationStoreAPI: StateCreator<
   setFormData: (data) => {
     console.log({ data });
     const current = get().form;
-    set({ form: { ...current, ...data } });
+    set(
+      { form: { ...current, ...data } },
+      false,
+      `setFormData - ${Object.keys(data).join(", ")}`
+    );
   },
 });
 
-export const useRegistrationStore = create<RegistrationStore>()(
-  devtools(immer(registrationStoreAPI))
+export const useLoginStore = create<RegistrationStore>()(
+  devtools(immer(loginStoreAPI))
 );
